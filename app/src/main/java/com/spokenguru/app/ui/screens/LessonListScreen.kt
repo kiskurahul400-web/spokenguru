@@ -3,7 +3,7 @@ package com.spokenguru.app.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
+import com.spokenguru.app.ui.theme.isAppDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +36,8 @@ import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Stars
+import androidx.compose.material.icons.filled.Palette
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,8 +46,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.platform.LocalContext
+import com.spokenguru.app.ui.theme.AppThemePreset
+import com.spokenguru.app.ui.theme.DarkModePreference
+import com.spokenguru.app.ui.theme.ThemeState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -97,8 +104,9 @@ fun LessonListScreen(
 ) {
     val lessons by repository.allLessons.collectAsState(initial = emptyList())
     val mistakesCount by repository.mistakesCount.collectAsState(initial = 0)
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     var showAllChapters by remember { mutableStateOf(false) }
+    var showThemeDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         bottomBar = {
@@ -157,20 +165,44 @@ fun LessonListScreen(
                         )
                     }
 
-                    Box(
-                        modifier = Modifier
-                            .shadow(1.dp, CircleShape)
-                            .clip(CircleShape)
-                            .background(if (isDark) GuruDarkSurface else Color.White)
-                            .size(42.dp),
-                        contentAlignment = Alignment.Center
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search",
-                            tint = if (isDark) GuruDarkText else GuruTextDark,
-                            modifier = Modifier.size(20.dp)
-                        )
+                        // Quick Theme Palette Switcher
+                        Box(
+                            modifier = Modifier
+                                .shadow(1.dp, CircleShape)
+                                .clip(CircleShape)
+                                .background(if (isDark) GuruDarkSurface else Color.White)
+                                .clickable { showThemeDialog = true }
+                                .size(42.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Palette,
+                                contentDescription = "Change Theme",
+                                tint = GuruPurple,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+
+                        // Search Button
+                        Box(
+                            modifier = Modifier
+                                .shadow(1.dp, CircleShape)
+                                .clip(CircleShape)
+                                .background(if (isDark) GuruDarkSurface else Color.White)
+                                .size(42.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
+                                tint = if (isDark) GuruDarkText else GuruTextDark,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     }
                 }
             }
@@ -305,6 +337,12 @@ fun LessonListScreen(
             }
         }
     }
+
+    if (showThemeDialog) {
+        ThemePickerDialog(
+            onDismiss = { showThemeDialog = false }
+        )
+    }
 }
 
 @Composable
@@ -313,7 +351,7 @@ fun LessonGuruCard(
     index: Int,
     onClick: () -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val shape = RoundedCornerShape(22.dp)
 
     // Vibrant icons and color palette matching reference UI
@@ -436,3 +474,153 @@ fun LessonGuruCard(
 }
 
 data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
+
+@Composable
+fun ThemePickerDialog(
+    onDismiss: () -> Unit
+) {
+    val context = LocalContext.current
+    val isDark = isAppDarkTheme()
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.Palette,
+                    contentDescription = null,
+                    tint = GuruPurple,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Theme & Mode (थीम व मोड)",
+                    fontFamily = FontFamily.Serif,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = if (isDark) GuruDarkText else GuruTextDark
+                )
+            }
+        },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                // Display Mode
+                Column {
+                    Text(
+                        text = "Display Mode (प्रदर्शन मोड):",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 13.sp,
+                        color = if (isDark) GuruDarkText else GuruTextDark
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        DarkModePreference.values().forEach { mode ->
+                            val isSelected = ThemeState.darkModePref == mode
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(
+                                        if (isSelected) GuruPurple else (if (isDark) Color(0xFF262447) else GuruPurpleLight)
+                                    )
+                                    .clickable {
+                                        ThemeState.updateDarkMode(context, mode)
+                                    }
+                                    .padding(vertical = 10.dp, horizontal = 2.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = "${mode.icon} ${mode.label}",
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                                    fontSize = 12.sp,
+                                    color = if (isSelected) Color.White else (if (isDark) GuruDarkText else GuruTextDark)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // Color Preset
+                Column {
+                    Text(
+                        text = "Color Palette (4 रंग थीम):",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 13.sp,
+                        color = if (isDark) GuruDarkText else GuruTextDark
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    val presets = AppThemePreset.values()
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (i in presets.indices step 2) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                for (j in 0..1) {
+                                    if (i + j < presets.size) {
+                                        val preset = presets[i + j]
+                                        val isSelected = ThemeState.currentPreset == preset
+                                        Box(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .clip(RoundedCornerShape(12.dp))
+                                                .background(
+                                                    if (isSelected) (if (isDark) Color(0xFF292452) else Color(0xFFF3F0FE))
+                                                    else (if (isDark) Color(0xFF1B1933) else Color(0xFFFBFBFE))
+                                                )
+                                                .border(
+                                                    width = if (isSelected) 2.dp else 1.dp,
+                                                    color = if (isSelected) preset.primaryColor else (if (isDark) Color(0xFF2C284C) else Color(0xFFE4E1F4)),
+                                                    shape = RoundedCornerShape(12.dp)
+                                                )
+                                                .clickable {
+                                                    ThemeState.updatePreset(context, preset)
+                                                }
+                                                .padding(10.dp)
+                                        ) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .size(20.dp)
+                                                        .clip(CircleShape)
+                                                        .background(preset.primaryColor)
+                                                )
+                                                Spacer(modifier = Modifier.width(8.dp))
+                                                Column {
+                                                    Text(
+                                                        text = preset.title,
+                                                        fontWeight = FontWeight.Bold,
+                                                        fontSize = 11.sp,
+                                                        color = if (isDark) GuruDarkText else GuruTextDark
+                                                    )
+                                                    if (isSelected) {
+                                                        Text(
+                                                            text = "Active ✓",
+                                                            fontSize = 10.sp,
+                                                            color = preset.primaryColor,
+                                                            fontWeight = FontWeight.Bold
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("DONE", fontWeight = FontWeight.Bold, color = GuruPurple)
+            }
+        },
+        containerColor = if (isDark) GuruDarkSurface else Color.White,
+        shape = RoundedCornerShape(20.dp)
+    )
+}

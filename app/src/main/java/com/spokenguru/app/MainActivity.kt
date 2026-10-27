@@ -26,6 +26,7 @@ import com.spokenguru.app.ui.screens.MistakeReviewScreen
 import com.spokenguru.app.ui.screens.ProfileScreen
 import com.spokenguru.app.ui.screens.WordPickScreen
 import com.spokenguru.app.ui.theme.SpokenGuruTheme
+import com.spokenguru.app.ui.theme.ThemeState
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ThemeState.init(applicationContext)
 
         repository = LessonRepository(applicationContext)
 

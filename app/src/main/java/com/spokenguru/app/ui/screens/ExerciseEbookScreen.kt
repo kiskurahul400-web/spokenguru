@@ -4,7 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
+import com.spokenguru.app.ui.theme.isAppDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -94,7 +94,7 @@ fun ExerciseEbookScreen(
     onStartPractice: (Int) -> Unit
 ) {
     val context = LocalContext.current
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val ttsManager = remember { TtsManager(context) }
     DisposableEffect(Unit) {
         onDispose { ttsManager.shutdown() }
@@ -136,7 +136,7 @@ fun EbookChaptersListView(
     onTabSelected: (NavTab) -> Unit,
     onSelectLesson: (LessonEntity) -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
 
     Scaffold(
         bottomBar = {
@@ -457,7 +457,7 @@ fun LessonExerciseReaderView(
     onBackToChapters: () -> Unit,
     onStartPractice: (Int) -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     var questions by remember { mutableStateOf<List<QuestionEntity>>(emptyList()) }
 
     // Global state: whether answers are hidden or shown by default

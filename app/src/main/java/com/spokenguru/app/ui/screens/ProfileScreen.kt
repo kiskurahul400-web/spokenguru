@@ -3,7 +3,7 @@ package com.spokenguru.app.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
+import com.spokenguru.app.ui.theme.isAppDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -77,6 +77,11 @@ import com.spokenguru.app.ui.theme.GuruRed
 import com.spokenguru.app.ui.theme.GuruRedLight
 import com.spokenguru.app.ui.theme.GuruTextDark
 import com.spokenguru.app.ui.theme.GuruTextMuted
+import androidx.compose.material.icons.filled.Palette
+import androidx.compose.ui.platform.LocalContext
+import com.spokenguru.app.ui.theme.AppThemePreset
+import com.spokenguru.app.ui.theme.DarkModePreference
+import com.spokenguru.app.ui.theme.ThemeState
 import com.spokenguru.app.ui.theme.GuruTextSubtle
 
 @Composable
@@ -87,7 +92,8 @@ fun ProfileScreen(
     onOpenMistakes: () -> Unit,
     onOpenImport: () -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val context = LocalContext.current
+    val isDark = isAppDarkTheme()
     val mistakesCount by repository.mistakesCount.collectAsState(initial = 0)
     var remindersEnabled by remember { mutableStateOf(true) }
 
@@ -298,6 +304,177 @@ fun ProfileScreen(
                 )
             }
 
+            // Theme & Appearance Section (थीम और मोड)
+            Text(
+                text = "🎨 Theme & Appearance (थीम और मोड)",
+                fontFamily = FontFamily.Serif,
+                fontWeight = FontWeight.Bold,
+                fontSize = 17.sp,
+                color = if (isDark) GuruDarkText else GuruTextDark
+            )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape, ambientColor = GuruPurple.copy(alpha = 0.08f))
+                    .clip(cardShape)
+                    .background(if (isDark) GuruDarkSurface else Color.White)
+                    .border(1.dp, if (isDark) GuruDarkCardBorder else GuruCardBorder, cardShape)
+                    .padding(18.dp)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    // Dark / Light Mode Selector
+                    Column {
+                        Text(
+                            text = "Display Mode (प्रदर्शन मोड)",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            color = if (isDark) GuruDarkText else GuruTextDark
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "Light, Dark, or System mode • तुरंत बदलें",
+                            fontSize = 12.sp,
+                            color = if (isDark) GuruDarkTextMuted else GuruTextMuted
+                        )
+                    }
+
+                    // 3 Mode Pills: System, Light, Dark
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        DarkModePreference.values().forEach { mode ->
+                            val isSelected = ThemeState.darkModePref == mode
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(14.dp))
+                                    .background(
+                                        if (isSelected) GuruPurple else (if (isDark) Color(0xFF262447) else GuruPurpleLight)
+                                    )
+                                    .clickable {
+                                        ThemeState.updateDarkMode(context, mode)
+                                    }
+                                    .padding(vertical = 11.dp, horizontal = 6.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
+                                    Text(text = mode.icon, fontSize = 15.sp)
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = mode.label,
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                                        fontSize = 13.sp,
+                                        color = if (isSelected) Color.White else (if (isDark) GuruDarkText else GuruTextDark)
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    // Color Theme Preset
+                    Column {
+                        Text(
+                            text = "Color Theme (थीम रंग)",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            color = if (isDark) GuruDarkText else GuruTextDark
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "4 Vibrant Color Palettes • 4 अलग-अलग थीम",
+                            fontSize = 12.sp,
+                            color = if (isDark) GuruDarkTextMuted else GuruTextMuted
+                        )
+                    }
+
+                    // 4 Theme Preset Cards in 2x2 grid
+                    val presets = AppThemePreset.values()
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        for (i in presets.indices step 2) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                for (j in 0..1) {
+                                    if (i + j < presets.size) {
+                                        val preset = presets[i + j]
+                                        val isSelected = ThemeState.currentPreset == preset
+                                        Box(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .clip(RoundedCornerShape(16.dp))
+                                                .background(
+                                                    if (isSelected) (if (isDark) Color(0xFF292452) else Color(0xFFF3F0FE))
+                                                    else (if (isDark) Color(0xFF1B1933) else Color(0xFFFBFBFE))
+                                                )
+                                                .border(
+                                                    width = if (isSelected) 2.dp else 1.dp,
+                                                    color = if (isSelected) preset.primaryColor else (if (isDark) Color(0xFF2C284C) else Color(0xFFE4E1F4)),
+                                                    shape = RoundedCornerShape(16.dp)
+                                                )
+                                                .clickable {
+                                                    ThemeState.updatePreset(context, preset)
+                                                }
+                                                .padding(12.dp)
+                                        ) {
+                                            Column {
+                                                Row(
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                                    verticalAlignment = Alignment.CenterVertically
+                                                ) {
+                                                    // Primary Color swatch
+                                                    Box(
+                                                        modifier = Modifier
+                                                            .size(24.dp)
+                                                            .clip(CircleShape)
+                                                            .background(preset.primaryColor)
+                                                    )
+                                                    if (isSelected) {
+                                                        Box(
+                                                            modifier = Modifier
+                                                                .clip(RoundedCornerShape(6.dp))
+                                                                .background(preset.primaryColor)
+                                                                .padding(horizontal = 6.dp, vertical = 2.dp)
+                                                        ) {
+                                                            Text(
+                                                                text = "✓ Selected",
+                                                                fontSize = 9.sp,
+                                                                fontWeight = FontWeight.Bold,
+                                                                color = Color.White
+                                                            )
+                                                        }
+                                                    }
+                                                }
+                                                Spacer(modifier = Modifier.height(8.dp))
+                                                Text(
+                                                    text = preset.title,
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontSize = 13.sp,
+                                                    color = if (isDark) GuruDarkText else GuruTextDark
+                                                )
+                                                Text(
+                                                    text = preset.subtitle,
+                                                    fontSize = 11.sp,
+                                                    color = if (isDark) GuruDarkTextMuted else GuruTextMuted
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             // Study & eBook Preferences Section
             Text(
                 text = "⚙️ Study & eBook Preferences",
@@ -406,7 +583,7 @@ fun StatCard(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val shape = RoundedCornerShape(20.dp)
 
     Box(
@@ -482,7 +659,7 @@ fun PreferenceRow(
     subtitle: String,
     onClick: (() -> Unit)? = null
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     Row(
         modifier = Modifier
             .fillMaxWidth()

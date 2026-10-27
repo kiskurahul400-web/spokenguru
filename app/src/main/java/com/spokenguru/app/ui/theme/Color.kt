@@ -1,13 +1,34 @@
 package com.spokenguru.app.ui.theme
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
-// Primary Brand Palette (from Reference UI: English Practice Guru)
-val GuruPurple = Color(0xFF4F46E5)
-val GuruPurpleDark = Color(0xFF3730A3)
-val GuruPurpleDeep = Color(0xFF2B228B)
-val GuruPurpleLight = Color(0xFFEEECFD)
-val GuruPurpleBorder = Color(0xFFDDD8FD)
+// Dynamic Theme Palette getters (backed by LocalAppThemePalette)
+val GuruPurple: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.primary
+
+val GuruPurpleDark: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.primaryDark
+
+val GuruPurpleDeep: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.primaryDeep
+
+val GuruPurpleLight: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.primaryLight
+
+val GuruPurpleBorder: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.primaryBorder
 
 val GuruMint = Color(0xFF10B981)
 val GuruMintLight = Color(0xFFE6FBF2)
@@ -23,7 +44,11 @@ val GuruAmberLight = Color(0xFFFEF9E7)
 val GuruBlue = Color(0xFF2563EB)
 val GuruBlueLight = Color(0xFFEBF5FF)
 
-val GuruBg = Color(0xFFF7F6FF)
+val GuruBg: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.lightBg
+
 val GuruCardBorder = Color(0xFFECEAFE)
 val GuruCardBorderDashed = Color(0xFFDDD8FD)
 val GuruTextDark = Color(0xFF1E1B4B)
@@ -31,8 +56,20 @@ val GuruTextMuted = Color(0xFF6B7280)
 val GuruTextSubtle = Color(0xFF9CA3AF)
 
 // Dark Theme Variants
-val GuruDarkBg = Color(0xFF0E0D1B)
-val GuruDarkSurface = Color(0xFF17152D)
-val GuruDarkCardBorder = Color(0xFF2A264F)
+val GuruDarkBg: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.darkBg
+
+val GuruDarkSurface: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.darkSurface
+
+val GuruDarkCardBorder: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalAppThemePalette.current.darkCardBorder
+
 val GuruDarkText = Color(0xFFF5F3FF)
 val GuruDarkTextMuted = Color(0xFFA5B4FC)

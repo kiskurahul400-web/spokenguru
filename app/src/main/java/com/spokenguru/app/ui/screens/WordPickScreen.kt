@@ -8,7 +8,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
+import com.spokenguru.app.ui.theme.isAppDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -125,7 +125,7 @@ fun WordPickScreen(
     onNavigateBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val scope = rememberCoroutineScope()
     val gson = remember { Gson() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -1014,7 +1014,7 @@ fun CorrectFeedbackCard(
     ttsManager: TtsManager,
     onNext: () -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
 
     Box(
@@ -1189,7 +1189,7 @@ fun IncorrectFeedbackCard(
     onTryAgain: () -> Unit,
     onNext: () -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
 
     Box(
@@ -1370,7 +1370,7 @@ fun ActionPillButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
@@ -1405,7 +1405,7 @@ fun SmallTogglePill(
     icon: String,
     onClick: () -> Unit
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isAppDarkTheme()
     val shape = RoundedCornerShape(14.dp)
     Box(
         modifier = Modifier
