@@ -8,4 +8,18 @@
 .externalNativeBuild
 .cxx
 local.properties
-app/build/
+# Ignore everything in app/build except outputs
+app/build/*
+!app/build/outputs/
+
+# Ignore everything in outputs except apk folder
+app/build/outputs/*
+!app/build/outputs/apk/
+
+# Ignore everything in apk except debug folder
+app/build/outputs/apk/*
+!app/build/outputs/apk/debug/
+
+# Ignore everything in debug except .apk files
+app/build/outputs/apk/debug/*
+!app/build/outputs/apk/debug/*.apk
