@@ -1,0 +1,1703 @@
+{
+  "version": 1,
+  "lessons": [
+    {
+      "lessonNumber": 1,
+      "title": "Use of This, That, These & Those",
+      "pageNumber": 5,
+      "totalQuestions": 101,
+      "isAvailable": true
+    },
+    {
+      "lessonNumber": 2,
+      "title": "What is the time?",
+      "pageNumber": 12,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 3,
+      "title": "WH Family Words in English",
+      "pageNumber": 20,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 4,
+      "title": "Three Forms of Verbs",
+      "pageNumber": 32,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 5,
+      "title": "Three Degrees of Adjectives",
+      "pageNumber": 49,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 6,
+      "title": "Three Degrees of Adverbs",
+      "pageNumber": 53,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 7,
+      "title": "Placement of Adverbs",
+      "pageNumber": 55,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 8,
+      "title": "Simple Sentences (No action by the subject)",
+      "pageNumber": 58,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 9,
+      "title": "Use of THERE in Sentences",
+      "pageNumber": 67,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 10,
+      "title": "Tenses",
+      "pageNumber": 86,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 11,
+      "title": "Modal Verbs",
+      "pageNumber": 116,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 12,
+      "title": "Should + Be, Have & Been",
+      "pageNumber": 127,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 13,
+      "title": "Can/Could + Be, Have & Been",
+      "pageNumber": 138,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 14,
+      "title": "Would + Be, Have & Been",
+      "pageNumber": 145,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 15,
+      "title": "Conditional Sentences – Type 0, 1, 2 & 3",
+      "pageNumber": 156,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 16,
+      "title": "All Auxiliary / Helping / Modal Verbs",
+      "pageNumber": 198,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 17,
+      "title": "Use of IT",
+      "pageNumber": 223,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 18,
+      "title": "Prepositions",
+      "pageNumber": 229,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 19,
+      "title": "Position Sense",
+      "pageNumber": 273,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 20,
+      "title": "Conjunctions",
+      "pageNumber": 279,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 21,
+      "title": "Use of LET",
+      "pageNumber": 293,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 22,
+      "title": "Imperative Sentences",
+      "pageNumber": 303,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 23,
+      "title": "Causative Verbs",
+      "pageNumber": 321,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 24,
+      "title": "Active to Passive Voice",
+      "pageNumber": 335,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 25,
+      "title": "Passive Voice",
+      "pageNumber": 346,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 26,
+      "title": "Use of “Have, Having...”",
+      "pageNumber": 355,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 27,
+      "title": "Use of “Be, Being & Been”",
+      "pageNumber": 359,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 28,
+      "title": "WH + Ever",
+      "pageNumber": 364,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 29,
+      "title": "Use of Ever & Never",
+      "pageNumber": 379,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 30,
+      "title": "Direct to Indirect Speech",
+      "pageNumber": 401,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 31,
+      "title": "Homonyms",
+      "pageNumber": 414,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 32,
+      "title": "Question Tags",
+      "pageNumber": 416,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 33,
+      "title": "Antonyms",
+      "pageNumber": 419,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 34,
+      "title": "Synonyms",
+      "pageNumber": 438,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 35,
+      "title": "Special Cases",
+      "pageNumber": 450,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 36,
+      "title": "Mixed Practice Exercise",
+      "pageNumber": 454,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 37,
+      "title": "Sentence Correction Exercise",
+      "pageNumber": 462,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 38,
+      "title": "Singular to Plural",
+      "pageNumber": 474,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 39,
+      "title": "1500+ MCQs",
+      "pageNumber": 477,
+      "totalQuestions": 0,
+      "isAvailable": false
+    },
+    {
+      "lessonNumber": 40,
+      "title": "25+ Test Papers",
+      "pageNumber": 686,
+      "totalQuestions": 0,
+      "isAvailable": false
+    }
+  ],
+  "lesson1Questions": [
+    {
+      "questionNumber": 1,
+      "lessonNumber": 1,
+      "hindiText": "ये लड़की कौन है?",
+      "romanText": "Ye ladki kaun hai?",
+      "primaryAnswer": "Who is this girl?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 2,
+      "lessonNumber": 1,
+      "hindiText": "ये लड़कियाँ कौन हैं?",
+      "romanText": "Ye ladkiyaan kaun hain?",
+      "primaryAnswer": "Who are these girls?",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 3,
+      "lessonNumber": 1,
+      "hindiText": "वो लड़की कौन है?",
+      "romanText": "Vo ladki kaun hai?",
+      "primaryAnswer": "Who is that girl?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 4,
+      "lessonNumber": 1,
+      "hindiText": "वो लड़कियाँ कौन हैं?",
+      "romanText": "Vo ladkiyaan kaun hain?",
+      "primaryAnswer": "Who are those girls?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 5,
+      "lessonNumber": 1,
+      "hindiText": "ये लड़का बहुत शैतान है।",
+      "romanText": "Ye ladka bahut shaitaan hai.",
+      "primaryAnswer": "This boy is very naughty.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 6,
+      "lessonNumber": 1,
+      "hindiText": "यह दरवाजा बंद है।",
+      "romanText": "Yah darwaza band hai.",
+      "primaryAnswer": "This door is locked.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 7,
+      "lessonNumber": 1,
+      "hindiText": "वह बगीचा प्यारा लग रहा है।",
+      "romanText": "Vah bageecha pyara lag raha hai.",
+      "primaryAnswer": "That garden looks lovely.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "garden = बगीचा"
+    },
+    {
+      "questionNumber": 8,
+      "lessonNumber": 1,
+      "hindiText": "ये लड़का अमित है।",
+      "romanText": "Ye ladka Amit hai.",
+      "primaryAnswer": "This boy is Amit.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Amit (Name)"
+    },
+    {
+      "questionNumber": 9,
+      "lessonNumber": 1,
+      "hindiText": "वो लड़का रोहन है।",
+      "romanText": "Vo ladka Rohan hai.",
+      "primaryAnswer": "That boy is Rohan.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Rohan (Name)"
+    },
+    {
+      "questionNumber": 10,
+      "lessonNumber": 1,
+      "hindiText": "वह लड़के गाँव से आए हैं।",
+      "romanText": "Vah ladke gaon se aayein hain.",
+      "primaryAnswer": "Those boys have come from the village.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 11,
+      "lessonNumber": 1,
+      "hindiText": "वे असली बिल्लियाँ नहीं हैं।",
+      "romanText": "Ve asli billiyan nahi hain.",
+      "primaryAnswer": "Those aren’t real cats.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 12,
+      "lessonNumber": 1,
+      "hindiText": "इस कार को क्या हुआ?",
+      "romanText": "Is car ko kya huwa?",
+      "primaryAnswer": "What happened to this car?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 13,
+      "lessonNumber": 1,
+      "hindiText": "क्या तुम इस लड़के को जानती हो?",
+      "romanText": "Kya tum is ladke ko jaanti ho?",
+      "primaryAnswer": "Do you know this boy?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 14,
+      "lessonNumber": 1,
+      "hindiText": "वो गमले लाल रंग के हैं।",
+      "romanText": "Vo gamle laal rang kai hain.",
+      "primaryAnswer": "Those pots are red in colour.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "pots = गमले"
+    },
+    {
+      "questionNumber": 15,
+      "lessonNumber": 1,
+      "hindiText": "ये बच्चे हँस क्यों रहे हैं?",
+      "romanText": "Ye bachche hans kyun rahe hain?",
+      "primaryAnswer": "Why are these kids laughing?",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "laughing = हँस रहे"
+    },
+    {
+      "questionNumber": 16,
+      "lessonNumber": 1,
+      "hindiText": "आपने वह घड़ी कहाँ से खरीदी?",
+      "romanText": "Aapne vah ghadi kha se khareedi?",
+      "primaryAnswer": "Where did you buy that watch from?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "watch = घड़ी"
+    },
+    {
+      "questionNumber": 17,
+      "lessonNumber": 1,
+      "hindiText": "ये सब्ज़ी बहुत टेस्टी है।",
+      "romanText": "Ye sabzi bahut tasty hai.",
+      "primaryAnswer": "This vegetable is very tasty.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "vegetable = सब्ज़ी"
+    },
+    {
+      "questionNumber": 18,
+      "lessonNumber": 1,
+      "hindiText": "मुझे वो खिड़की पेंट करनी है।",
+      "romanText": "Mujhe vo khidki paint karni hai.",
+      "primaryAnswer": "I have to paint that window.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 19,
+      "lessonNumber": 1,
+      "hindiText": "मैं उन किताबों का ध्यान रखूँगा।",
+      "romanText": "Main un kitaabon ka dhyan rakhunga.",
+      "primaryAnswer": "I will take care of those books.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 20,
+      "lessonNumber": 1,
+      "hindiText": "वह मेरी फेवरेट जगह है।",
+      "romanText": "Vah meri favourite jagah hai.",
+      "primaryAnswer": "That is my favourite place.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 21,
+      "lessonNumber": 1,
+      "hindiText": "मुझे ये मोबाइल खरीदना है।",
+      "romanText": "Mujhe ye mobile kharidna hai.",
+      "primaryAnswer": "I have to buy this mobile.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 22,
+      "lessonNumber": 1,
+      "hindiText": "क्या ये सभी चॉकलेट मेरे लिए हैं?",
+      "romanText": "Kya ye sabhi chocolate mere liye hain?",
+      "primaryAnswer": "Are all these chocolates for me?",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "chocolates = चॉकलेट"
+    },
+    {
+      "questionNumber": 23,
+      "lessonNumber": 1,
+      "hindiText": "वे सपने सबसे बुरे थे।",
+      "romanText": "Ve sapne sabse bure the.",
+      "primaryAnswer": "Those dreams were the worst.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "dreams = सपने"
+    },
+    {
+      "questionNumber": 24,
+      "lessonNumber": 1,
+      "hindiText": "ये सपने सबसे बुरे थे।",
+      "romanText": "Ye sapne sabse bure the.",
+      "primaryAnswer": "These dreams were the worst.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "dreams = सपने"
+    },
+    {
+      "questionNumber": 25,
+      "lessonNumber": 1,
+      "hindiText": "आइए, इस बारे में बात करते हैं।",
+      "romanText": "Aaeye, is bare me baat karte hain.",
+      "primaryAnswer": "Come, let’s talk about it.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 26,
+      "lessonNumber": 1,
+      "hindiText": "यह पार्टी बहुत बोरिंग है।",
+      "romanText": "Yah party bahut boring hai.",
+      "primaryAnswer": "This party is very boring.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 27,
+      "lessonNumber": 1,
+      "hindiText": "वह शहर काफी छोटा है।",
+      "romanText": "Vah shahar kaafi chhota hai.",
+      "primaryAnswer": "That city is very small.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 28,
+      "lessonNumber": 1,
+      "hindiText": "वह लड़कियाँ बहुत चालाक लग रही थी।",
+      "romanText": "Vah ladkiyan bahut chalaak lag rahi thi.",
+      "primaryAnswer": "Those girls were looking very clever.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "clever = चालाक"
+    },
+    {
+      "questionNumber": 29,
+      "lessonNumber": 1,
+      "hindiText": "यह मेरा दोस्त समीर है।",
+      "romanText": "Yah mera dost Sameer hai.",
+      "primaryAnswer": "This is my friend Sameer.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Sameer (Friend's name)"
+    },
+    {
+      "questionNumber": 30,
+      "lessonNumber": 1,
+      "hindiText": "तुम ये खाना क्यों नहीं खा रहे?",
+      "romanText": "Tum ye khana kyun nahi kha rahe?",
+      "primaryAnswer": "Why are you not eating this food?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 31,
+      "lessonNumber": 1,
+      "hindiText": "वो हमारा घर है।",
+      "romanText": "Vo humara ghar hai.",
+      "primaryAnswer": "That is our home.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 32,
+      "lessonNumber": 1,
+      "hindiText": "वो काले वाले मेरे जूते हैं।",
+      "romanText": "Vo kale wale mere joote hain.",
+      "primaryAnswer": "Those black ones are my shoes.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 33,
+      "lessonNumber": 1,
+      "hindiText": "ये डान्स परफॉरमेन्स कमाल है।",
+      "romanText": "Ye dance performance kamaal hai.",
+      "primaryAnswer": "This dance performance is amazing.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "performance = प्रदर्शन"
+    },
+    {
+      "questionNumber": 34,
+      "lessonNumber": 1,
+      "hindiText": "वो लोग तो कल तक आयेंगे।",
+      "romanText": "Vo log to kal tak aaenge.",
+      "primaryAnswer": "Those people will come by tomorrow.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 35,
+      "lessonNumber": 1,
+      "hindiText": "ये फूल मुरझा गये हैं।",
+      "romanText": "Yah phool murjha gaye hain.",
+      "primaryAnswer": "These flowers are dead.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "dead / withered = मुरझा गये"
+    },
+    {
+      "questionNumber": 36,
+      "lessonNumber": 1,
+      "hindiText": "यह बारिश मुझे उदास कर रही है।",
+      "romanText": "Yah barish mujhe udas kar rahi hai.",
+      "primaryAnswer": "This rain is making me feel sad.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 37,
+      "lessonNumber": 1,
+      "hindiText": "वे घर सब नये हैं।",
+      "romanText": "Ve ghar sab naye hai.",
+      "primaryAnswer": "Those houses are all new.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 38,
+      "lessonNumber": 1,
+      "hindiText": "ये ट्रैफिक हर साल और बदतर हो रहा है।",
+      "romanText": "Ye traffic har saal aur badtar ho raha hai.",
+      "primaryAnswer": "This traffic gets worse every year.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 39,
+      "lessonNumber": 1,
+      "hindiText": "मेज़ पर वे चाबियाँ किसकी हैं?",
+      "romanText": "Mez par ve chabiyan kiski hain?",
+      "primaryAnswer": "Whose are those keys on table?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 40,
+      "lessonNumber": 1,
+      "hindiText": "तुम्हें वो दिन याद है?",
+      "romanText": "Tumhe vo din yaad hai?",
+      "primaryAnswer": "Do you remember that day?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 41,
+      "lessonNumber": 1,
+      "hindiText": "मुझे वो पग डॉग्स बहुत अच्छे लगते हैं।",
+      "romanText": "Mujhe vo pug dogs bahut ache lagte hai.",
+      "primaryAnswer": "I love those pug dogs.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 42,
+      "lessonNumber": 1,
+      "hindiText": "वे डब्बे ऊपर ले जाओ।",
+      "romanText": "Ve dabbe oopar le jao.",
+      "primaryAnswer": "Take those boxes up.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 43,
+      "lessonNumber": 1,
+      "hindiText": "वो पेड़ बहुत सुन्दर है।",
+      "romanText": "Vo ped bahut sundar hai.",
+      "primaryAnswer": "That tree is very beautiful.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 44,
+      "lessonNumber": 1,
+      "hindiText": "ये सारे सेब सबसे ज़्यादा मीठे हैं।",
+      "romanText": "Ye sare seb sabse zyada meethe hain.",
+      "primaryAnswer": "These apples are sweetest of all.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 45,
+      "lessonNumber": 1,
+      "hindiText": "ये लेटर किसका है?",
+      "romanText": "Ye letter kiska hai?",
+      "primaryAnswer": "Whose letter is this?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 46,
+      "lessonNumber": 1,
+      "hindiText": "वो है दूध की दुकान।",
+      "romanText": "Vo hai dhoodh ki dukan.",
+      "primaryAnswer": "That is a milk shop.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "milk = दूध"
+    },
+    {
+      "questionNumber": 47,
+      "lessonNumber": 1,
+      "hindiText": "वो मेरे माता-पिता नहीं हैं।",
+      "romanText": "Vo mere mata-pita nahi hai.",
+      "primaryAnswer": "Those are not my parents.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 48,
+      "lessonNumber": 1,
+      "hindiText": "वो मेरा लेपटॉप है।",
+      "romanText": "Vo mera laptop hai.",
+      "primaryAnswer": "That is my laptop.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 49,
+      "lessonNumber": 1,
+      "hindiText": "ये संगीतकार प्रतिभाशाली है।",
+      "romanText": "Ye sangeetkaar pratibhashali hai.",
+      "primaryAnswer": "This musician is talented.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "talented = प्रतिभाशाली"
+    },
+    {
+      "questionNumber": 50,
+      "lessonNumber": 1,
+      "hindiText": "ये साल मेरे लिए अच्छा नहीं रहा।",
+      "romanText": "Yai saal mere liye acha nahi raha.",
+      "primaryAnswer": "This year hasn’t been good for me.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 51,
+      "lessonNumber": 1,
+      "hindiText": "वे मीटिंग्स कल हैं।",
+      "romanText": "Ve meetings kal hain.",
+      "primaryAnswer": "Those meetings will be held tomorrow.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 52,
+      "lessonNumber": 1,
+      "hindiText": "मुझे ये हार दिवाली के लिए चाहिए।",
+      "romanText": "Mujhe ye haar Diwali kai liye chahiye.",
+      "primaryAnswer": "I want this necklace for Diwali.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 53,
+      "lessonNumber": 1,
+      "hindiText": "ये मेरा भाई नहीं है।",
+      "romanText": "Yeh mera Bhai Nahi hai.",
+      "primaryAnswer": "This is not my brother.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 54,
+      "lessonNumber": 1,
+      "hindiText": "वह तुम्हारा था।",
+      "romanText": "Vah tumhaara tha.",
+      "primaryAnswer": "That was yours.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 55,
+      "lessonNumber": 1,
+      "hindiText": "वो सब लोग मेरे मेहमान हैं।",
+      "romanText": "Vo sab log mere mehamaan hai.",
+      "primaryAnswer": "All those people are my guests.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "guests = मेहमान"
+    },
+    {
+      "questionNumber": 56,
+      "lessonNumber": 1,
+      "hindiText": "यह चाबी किसकी है?",
+      "romanText": "Yah chabee kiski hai?",
+      "primaryAnswer": "Whose key is this?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 57,
+      "lessonNumber": 1,
+      "hindiText": "यह मेरा है।",
+      "romanText": "Yah mera hai.",
+      "primaryAnswer": "This is mine.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 58,
+      "lessonNumber": 1,
+      "hindiText": "यह घर अब हमारा है।",
+      "romanText": "Yah ghar ab hamaara hai.",
+      "primaryAnswer": "This house is ours now.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 59,
+      "lessonNumber": 1,
+      "hindiText": "वह आदमी दूर है।",
+      "romanText": "Vah aadami door hai.",
+      "primaryAnswer": "That man is far away.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 60,
+      "lessonNumber": 1,
+      "hindiText": "वे मेरे बच्चे नहीं थे।",
+      "romanText": "Ve mere bachche nahi the.",
+      "primaryAnswer": "Those were not my children.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 61,
+      "lessonNumber": 1,
+      "hindiText": "यह किताब मेरी नहीं थी।",
+      "romanText": "Yah kitaab meri nahi thi.",
+      "primaryAnswer": "This book was not mine.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 62,
+      "lessonNumber": 1,
+      "hindiText": "वह लड़की बहुत होशियार है।",
+      "romanText": "Vah ladki bahut hoshiyaar hai.",
+      "primaryAnswer": "That girl is very smart.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 63,
+      "lessonNumber": 1,
+      "hindiText": "ये मेरी लड़कियाँ नहीं हैं।",
+      "romanText": "Ye meri ladakiyaan nahi hain.",
+      "primaryAnswer": "These are not my girls.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 64,
+      "lessonNumber": 1,
+      "hindiText": "वह पेड़ बहुत हरा है।",
+      "romanText": "Vah ped bahut hara hai.",
+      "primaryAnswer": "That tree is very green.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 65,
+      "lessonNumber": 1,
+      "hindiText": "यह घर बहुत महँगा है।",
+      "romanText": "Yah ghar bahut mahanga hai.",
+      "primaryAnswer": "This house is so expensive.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 66,
+      "lessonNumber": 1,
+      "hindiText": "ये लड़के रोज़ कॉलेज जाते हैं।",
+      "romanText": "Ye ladke roz college jaate hain.",
+      "primaryAnswer": "These boys go to college every day.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 67,
+      "lessonNumber": 1,
+      "hindiText": "वो लड़कियाँ हमेशा यहाँ आती हैं।",
+      "romanText": "Vo ladakiyaan hamesha yahaan aati hain.",
+      "primaryAnswer": "Those girls always come here.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 68,
+      "lessonNumber": 1,
+      "hindiText": "ये लड़के मेरे दोस्त हैं।",
+      "romanText": "Ye ladake mere dost hain.",
+      "primaryAnswer": "These boys are my friends.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 69,
+      "lessonNumber": 1,
+      "hindiText": "क्या ये बच्चे घर पर पढ़ते हैं?",
+      "romanText": "Kya ye bachche ghar par padhate hain?",
+      "primaryAnswer": "Do these children study at home?",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 70,
+      "lessonNumber": 1,
+      "hindiText": "यह मेरा मोबाइल फोन है और वहाँ पर शेल्फ पर आपका मोबाइल फोन है।",
+      "romanText": "Yah mera mobile phone hai aur vahaan par shelf par aapka mobile phone hai.",
+      "primaryAnswer": "This is my mobile phone and that one on the shelf there is your mobile phone.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "are"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 71,
+      "lessonNumber": 1,
+      "hindiText": "जॉन, ये फ़ोल्डर को ले लो और इसे वहाँ डेस्क पर रख दो।",
+      "romanText": "John, ye folder ko le lo aur ise vahaan desk par rakh do.",
+      "primaryAnswer": "John, take this folder and put it on the desk over there.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 72,
+      "lessonNumber": 1,
+      "hindiText": "वहाँ पर वह इमारत न्यूयॉर्क बिल्डिंग है।",
+      "romanText": "Vahaan par vah imaarat Newyork building hai.",
+      "primaryAnswer": "That building over there is the Newyork Building.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Newyork Building"
+    },
+    {
+      "questionNumber": 73,
+      "lessonNumber": 1,
+      "hindiText": "वह एक प्यारी शाम थी।",
+      "romanText": "Vah ek pyari shaam thi.",
+      "primaryAnswer": "That was a lovely evening.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 74,
+      "lessonNumber": 1,
+      "hindiText": "यह आज एक खूबसूरत दिन है।",
+      "romanText": "Yah aaj ek khoobasoorat din hai.",
+      "primaryAnswer": "This is a beautiful day today.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 75,
+      "lessonNumber": 1,
+      "hindiText": "वहाँ पर वह बोतल खाली है।",
+      "romanText": "Vahaan par vah botal khali hai.",
+      "primaryAnswer": "That bottle over there is empty.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 76,
+      "lessonNumber": 1,
+      "hindiText": "वे सेब लाल हैं, लेकिन यहाँ के सेब हरे हैं।",
+      "romanText": "Ve seb laal hain, lekin yahaan ke seb hare hain.",
+      "primaryAnswer": "Those apples are red, but these apples over here are green.",
+      "alternateAnswers": [],
+      "distractors": [
+        "this",
+        "that",
+        "is"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 77,
+      "lessonNumber": 1,
+      "hindiText": "ये अंगूर वाकई मीठे हैं!",
+      "romanText": "Ye angoor vakai meethe hain!",
+      "primaryAnswer": "These grapes are really sweet!",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 78,
+      "lessonNumber": 1,
+      "hindiText": "यह एक कठिन परीक्षा थी जो हमने पिछले सप्ताह की थी।",
+      "romanText": "Yah ek kathin pareeksha thi jo hamne pichhale saptaah ki thi.",
+      "primaryAnswer": "That was a difficult test we had last week.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "difficult / toughest = कठिन"
+    },
+    {
+      "questionNumber": 79,
+      "lessonNumber": 1,
+      "hindiText": "यह किताब बहुत अच्छी है, है ना?",
+      "romanText": "Yah kitaab bahut achchhee hai, hai na?",
+      "primaryAnswer": "This book is great, isn’t it?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 80,
+      "lessonNumber": 1,
+      "hindiText": "वे लड़के अपना दोपहर का खाना खा रहे हैं।",
+      "romanText": "Ve ladke apna dopahar ka khana kha rahe h.",
+      "primaryAnswer": "Those boys are eating their lunch.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 81,
+      "lessonNumber": 1,
+      "hindiText": "ये हमारे बच्चे हैं।",
+      "romanText": "Ye hamaare bachche hain.",
+      "primaryAnswer": "These are our children.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 82,
+      "lessonNumber": 1,
+      "hindiText": "आप इन में से कौन सा चाहेंगे?",
+      "romanText": "Aap inmein se kaun sa chaahenge?",
+      "primaryAnswer": "Which of those would you like?",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 83,
+      "lessonNumber": 1,
+      "hindiText": "यह जैकेट दुकान में सबसे महँगी है।",
+      "romanText": "Yah jacket dukaan mein sabase mahangee hai.",
+      "primaryAnswer": "This jacket is the most expensive one in the shop.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "shop = दुकान"
+    },
+    {
+      "questionNumber": 84,
+      "lessonNumber": 1,
+      "hindiText": "यह पत्र कब भेजे जा रहे हैं?",
+      "romanText": "Yah patra kab bheje ja rahe hain?",
+      "primaryAnswer": "When are these letters going to be sent?",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 85,
+      "lessonNumber": 1,
+      "hindiText": "यह मेरी पसंदीदा टी-शर्ट है।",
+      "romanText": "Yah meree pasandeeda t-shirt hai.",
+      "primaryAnswer": "This is my favorite T-shirt.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 86,
+      "lessonNumber": 1,
+      "hindiText": "यह संगीत मुझे खुश करता है।",
+      "romanText": "Yah sangeet mujhe khush karata hai.",
+      "primaryAnswer": "This music makes me happy.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 87,
+      "lessonNumber": 1,
+      "hindiText": "ये प्रदर्शन अद्भुत है।",
+      "romanText": "Ye pradarshan adbhut hai.",
+      "primaryAnswer": "These performances are amazing.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "amazing = अद्भुत / कमाल"
+    },
+    {
+      "questionNumber": 88,
+      "lessonNumber": 1,
+      "hindiText": "यह ट्रेन देहरादून से होते हुए मथुरा जायेगी।",
+      "romanText": "Ye train Dehradun se hote hue Mathura jaegi.",
+      "primaryAnswer": "This train will go to Mathura via Dehradun.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "train = रेलगाड़ी"
+    },
+    {
+      "questionNumber": 89,
+      "lessonNumber": 1,
+      "hindiText": "यह अंतिम चरण था।",
+      "romanText": "Yah antim charan tha.",
+      "primaryAnswer": "This was the final step.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 90,
+      "lessonNumber": 1,
+      "hindiText": "यह अब तक का सबसे कठिन निर्णय हो सकता है।",
+      "romanText": "Yah ab tak ka sabase kathin nirnay ho sakata hai.",
+      "primaryAnswer": "This might be the toughest decision so far.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "difficult / toughest = कठिन"
+    },
+    {
+      "questionNumber": 91,
+      "lessonNumber": 1,
+      "hindiText": "यह समय अच्छा नहीं है...",
+      "romanText": "Yah samay achchha nahin hai...",
+      "primaryAnswer": "This isn't a good time.",
+      "alternateAnswers": [
+        "This time is not good."
+      ],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 92,
+      "lessonNumber": 1,
+      "hindiText": "यह चीज़ आपको परेशान नहीं करती है।",
+      "romanText": "Yah cheez aapako pareshan nahi karati hai.",
+      "primaryAnswer": "This thing does not bother you.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 93,
+      "lessonNumber": 1,
+      "hindiText": "वे आँखें उसका मज़ाक उड़ा रही होंगी।",
+      "romanText": "Ve aankhein uska mazaak uda rahi hongi.",
+      "primaryAnswer": "Those eyes would be mocking her.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 94,
+      "lessonNumber": 1,
+      "hindiText": "मुझे वे मेरी रसोई में चाहिए।",
+      "romanText": "Mujhe ve meree rasoee mein chaahiye.",
+      "primaryAnswer": "I want those in my kitchen.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 95,
+      "lessonNumber": 1,
+      "hindiText": "वे विचार मुझसे चुराए गए थे।",
+      "romanText": "Ve vichaar mujhse churae gae the.",
+      "primaryAnswer": "Those ideas were stolen from me.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 96,
+      "lessonNumber": 1,
+      "hindiText": "जो टेबल पर बैठे थे, वे चुप हो गए और देखते रहे।",
+      "romanText": "Jo table par baithe the, ve chup ho gaye aur dekhate rahe.",
+      "primaryAnswer": "Those, who were sitting at the table, became silent and kept watching.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 97,
+      "lessonNumber": 1,
+      "hindiText": "जो शायद उसके दोस्त थे, वो चले गए।",
+      "romanText": "Jo shaayad usake dost the, vo chale gaye.",
+      "primaryAnswer": "Those, who were probably his friends, left.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "this",
+        "that"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 98,
+      "lessonNumber": 1,
+      "hindiText": "यहाँ की ये तस्वीरें किताब की उन तस्वीरों से काफी बेहतर हैं।",
+      "romanText": "Yahaan ki ye tasveeren kitaab ki un tasveeron se kafi behatar hain.",
+      "primaryAnswer": "These photos here are much better than those photos on the book.",
+      "alternateAnswers": [],
+      "distractors": [
+        "this",
+        "that",
+        "is"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 99,
+      "lessonNumber": 1,
+      "hindiText": "ये मेरे दादा-दादी हैं, और वे लोग मेरे दोस्त के दादा-दादी हैं।",
+      "romanText": "Ye mere dada-dadi hain, aur ve log mere dost ke dada-dadi hain.",
+      "primaryAnswer": "These are my grandparents, and those people over there are my friend's grandparents.",
+      "alternateAnswers": [],
+      "distractors": [
+        "this",
+        "that",
+        "is"
+      ],
+      "hint": "grandparents = दादा-दादी"
+    },
+    {
+      "questionNumber": 100,
+      "lessonNumber": 1,
+      "hindiText": "हमारे पास इतना समय नहीं है।",
+      "romanText": "Humare pass itna samay nahi hai.",
+      "primaryAnswer": "We don’t have that much time.",
+      "alternateAnswers": [],
+      "distractors": [
+        "these",
+        "those",
+        "this"
+      ],
+      "hint": "Notice singular vs plural and near vs far (This/That vs These/Those)."
+    },
+    {
+      "questionNumber": 101,
+      "lessonNumber": 1,
+      "hindiText": "ये कैंचियाँ अच्छे से काटती हैं।",
+      "romanText": "Ye kainchiyan ache se kaatti hai.",
+      "primaryAnswer": "These scissors cut well.",
+      "alternateAnswers": [],
+      "distractors": [
+        "those",
+        "this",
+        "that"
+      ],
+      "hint": "scissors = कैंचियाँ"
+    }
+  ]
+}
