@@ -13,31 +13,31 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DuoGreen,
-    secondary = DuoBlue,
-    tertiary = DuoYellow,
-    background = DuoDarkBg,
-    surface = DuoDarkSurface,
+    primary = GuruPurple,
+    secondary = GuruBlue,
+    tertiary = GuruAmber,
+    background = GuruDarkBg,
+    surface = GuruDarkSurface,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.Black,
-    onBackground = DuoDarkText,
-    onSurface = DuoDarkText,
-    error = DuoRed
+    onBackground = GuruDarkText,
+    onSurface = GuruDarkText,
+    error = GuruRed
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = DuoGreen,
-    secondary = DuoBlue,
-    tertiary = DuoYellow,
-    background = Color.White,
-    surface = DuoGray,
+    primary = GuruPurple,
+    secondary = GuruBlue,
+    tertiary = GuruAmber,
+    background = GuruBg,
+    surface = Color.White,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.Black,
-    onBackground = DuoTextDark,
-    onSurface = DuoTextDark,
-    error = DuoRed
+    onBackground = GuruTextDark,
+    onSurface = GuruTextDark,
+    error = GuruRed
 )
 
 @Composable

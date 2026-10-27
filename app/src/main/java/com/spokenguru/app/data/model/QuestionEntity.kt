@@ -15,6 +15,11 @@ data class QuestionEntity(
     val alternateAnswersJson: String = "[]",
     val distractorsJson: String = "[]",
     val hint: String = "",
+    val ruleTitle: String = "",
+    val grammarRule: String = "",
+    val tagKeyword: String = "",
+    val categoryTag: String = "",
+    val wordGlossesJson: String = "{}",
     val isCompleted: Boolean = false,
     val isMistake: Boolean = false
 )

@@ -2,29 +2,37 @@ package com.spokenguru.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val DuoGreen = Color(0xFF58CC02)
-val DuoGreenDark = Color(0xFF46A302)
-val DuoGreenLight = Color(0xFFD7FFB8)
+// Primary Brand Palette (from Reference UI: English Practice Guru)
+val GuruPurple = Color(0xFF4F46E5)
+val GuruPurpleDark = Color(0xFF3730A3)
+val GuruPurpleDeep = Color(0xFF2B228B)
+val GuruPurpleLight = Color(0xFFEEECFD)
+val GuruPurpleBorder = Color(0xFFDDD8FD)
 
-val DuoRed = Color(0xFFFF4B4B)
-val DuoRedDark = Color(0xFFEA2B2B)
-val DuoRedLight = Color(0xFFFFDFE0)
+val GuruMint = Color(0xFF10B981)
+val GuruMintLight = Color(0xFFE6FBF2)
+val GuruMintDark = Color(0xFF047857)
 
-val DuoBlue = Color(0xFF1CB0F6)
-val DuoBlueDark = Color(0xFF1899D6)
+val GuruRed = Color(0xFFE11D48)
+val GuruRedLight = Color(0xFFFEECEE)
+val GuruRedDark = Color(0xFFBE123C)
 
-val DuoYellow = Color(0xFFFFC800)
-val DuoYellowDark = Color(0xFFE5A500)
+val GuruAmber = Color(0xFFD97706)
+val GuruAmberLight = Color(0xFFFEF9E7)
 
-val DuoGray = Color(0xFFF7F7F7)
-val DuoGrayBorder = Color(0xFFE5E5E5)
-val DuoGrayBorderDark = Color(0xFFCECECE)
-val DuoGrayText = Color(0xFFAFAFAF)
-val DuoTextDark = Color(0xFF3C3C3C)
+val GuruBlue = Color(0xFF2563EB)
+val GuruBlueLight = Color(0xFFEBF5FF)
 
-// Dark Theme colors
-val DuoDarkBg = Color(0xFF131F24)
-val DuoDarkSurface = Color(0xFF1B2A30)
-val DuoDarkCardBorder = Color(0xFF283B43)
-val DuoDarkText = Color(0xFFF1F1F1)
-val DuoDarkSlotBg = Color(0xFF1A272D)
+val GuruBg = Color(0xFFF7F6FF)
+val GuruCardBorder = Color(0xFFECEAFE)
+val GuruCardBorderDashed = Color(0xFFDDD8FD)
+val GuruTextDark = Color(0xFF1E1B4B)
+val GuruTextMuted = Color(0xFF6B7280)
+val GuruTextSubtle = Color(0xFF9CA3AF)
+
+// Dark Theme Variants
+val GuruDarkBg = Color(0xFF0E0D1B)
+val GuruDarkSurface = Color(0xFF17152D)
+val GuruDarkCardBorder = Color(0xFF2A264F)
+val GuruDarkText = Color(0xFFF5F3FF)
+val GuruDarkTextMuted = Color(0xFFA5B4FC)

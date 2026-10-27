@@ -32,7 +32,12 @@ data class SeedQuestion(
     val primaryAnswer: String,
     val alternateAnswers: List<String>?,
     val distractors: List<String>?,
-    val hint: String?
+    val hint: String?,
+    val ruleTitle: String?,
+    val grammarRule: String?,
+    val tagKeyword: String?,
+    val categoryTag: String?,
+    val wordGlosses: Map<String, String>?
 )
 
 class LessonRepository(
@@ -49,7 +54,8 @@ class LessonRepository(
 
     suspend fun ensureDataSeeded() = withContext(Dispatchers.IO) {
         val count = lessonDao.getLessonCount()
-        if (count == 0) {
+        val questionsCount = questionDao.getTotalQuestionsCount()
+        if (count == 0 || questionsCount == 0) {
             seedFromAssets()
         }
     }
@@ -81,6 +87,11 @@ class LessonRepository(
                     alternateAnswersJson = gson.toJson(it.alternateAnswers ?: emptyList<String>()),
                     distractorsJson = gson.toJson(it.distractors ?: emptyList<String>()),
                     hint = it.hint ?: "",
+                    ruleTitle = it.ruleTitle ?: "Guru Grammar Rule",
+                    grammarRule = it.grammarRule ?: "",
+                    tagKeyword = it.tagKeyword ?: "Demonstratives",
+                    categoryTag = it.categoryTag ?: "Distance Concept",
+                    wordGlossesJson = gson.toJson(it.wordGlosses ?: emptyMap<String, String>()),
                     isCompleted = false,
                     isMistake = false
                 )
@@ -122,7 +133,6 @@ class LessonRepository(
                 return@withContext Result.failure(Exception("JSON list is empty"))
             }
 
-            // delete existing questions for lesson
             questionDao.deleteQuestionsForLesson(lessonNumber)
 
             val entities = imported.mapIndexed { index, q ->
@@ -135,13 +145,17 @@ class LessonRepository(
                     alternateAnswersJson = gson.toJson(q.alternateAnswers ?: emptyList<String>()),
                     distractorsJson = gson.toJson(q.distractors ?: emptyList<String>()),
                     hint = q.hint ?: "",
+                    ruleTitle = q.ruleTitle ?: "Guru Grammar Rule",
+                    grammarRule = q.grammarRule ?: "",
+                    tagKeyword = q.tagKeyword ?: "",
+                    categoryTag = q.categoryTag ?: "",
+                    wordGlossesJson = gson.toJson(q.wordGlosses ?: emptyMap<String, String>()),
                     isCompleted = false,
                     isMistake = false
                 )
             }
             questionDao.insertQuestions(entities)
 
-            // update lesson availability & question count
             val existing = lessonDao.getLesson(lessonNumber)
             if (existing != null) {
                 lessonDao.updateLesson(

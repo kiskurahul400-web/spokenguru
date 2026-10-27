@@ -1,6 +1,5 @@
 package com.spokenguru.app.ui.screens
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -23,18 +22,18 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.VolumeUp
-import androidx.compose.material.icons.outlined.Pets
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -49,8 +48,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,23 +61,28 @@ import com.spokenguru.app.audio.SoundEffectManager
 import com.spokenguru.app.audio.TtsManager
 import com.spokenguru.app.data.model.QuestionEntity
 import com.spokenguru.app.data.repository.LessonRepository
-import com.spokenguru.app.ui.components.DuoButton
-import com.spokenguru.app.ui.components.DuoButtonColor
-import com.spokenguru.app.ui.components.WordChip
-import com.spokenguru.app.ui.theme.DuoBlue
-import com.spokenguru.app.ui.theme.DuoDarkCardBorder
-import com.spokenguru.app.ui.theme.DuoDarkSlotBg
-import com.spokenguru.app.ui.theme.DuoDarkSurface
-import com.spokenguru.app.ui.theme.DuoDarkText
-import com.spokenguru.app.ui.theme.DuoGray
-import com.spokenguru.app.ui.theme.DuoGrayBorder
-import com.spokenguru.app.ui.theme.DuoGrayText
-import com.spokenguru.app.ui.theme.DuoGreen
-import com.spokenguru.app.ui.theme.DuoGreenLight
-import com.spokenguru.app.ui.theme.DuoRed
-import com.spokenguru.app.ui.theme.DuoRedLight
-import com.spokenguru.app.ui.theme.DuoTextDark
-import com.spokenguru.app.ui.theme.DuoYellow
+import com.spokenguru.app.ui.components.BankWordTile
+import com.spokenguru.app.ui.components.GuruButton
+import com.spokenguru.app.ui.components.GuruButtonVariant
+import com.spokenguru.app.ui.components.SlotWordChip
+import com.spokenguru.app.ui.theme.GuruBg
+import com.spokenguru.app.ui.theme.GuruCardBorder
+import com.spokenguru.app.ui.theme.GuruCardBorderDashed
+import com.spokenguru.app.ui.theme.GuruDarkBg
+import com.spokenguru.app.ui.theme.GuruDarkCardBorder
+import com.spokenguru.app.ui.theme.GuruDarkSurface
+import com.spokenguru.app.ui.theme.GuruDarkText
+import com.spokenguru.app.ui.theme.GuruDarkTextMuted
+import com.spokenguru.app.ui.theme.GuruMint
+import com.spokenguru.app.ui.theme.GuruMintLight
+import com.spokenguru.app.ui.theme.GuruPurple
+import com.spokenguru.app.ui.theme.GuruPurpleDeep
+import com.spokenguru.app.ui.theme.GuruPurpleLight
+import com.spokenguru.app.ui.theme.GuruRed
+import com.spokenguru.app.ui.theme.GuruRedLight
+import com.spokenguru.app.ui.theme.GuruTextDark
+import com.spokenguru.app.ui.theme.GuruTextMuted
+import com.spokenguru.app.ui.theme.GuruTextSubtle
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -92,20 +98,16 @@ fun MistakeReviewScreen(
 
     val ttsManager = remember { TtsManager(context) }
     DisposableEffect(Unit) {
-        onDispose {
-            ttsManager.shutdown()
-        }
+        onDispose { ttsManager.shutdown() }
     }
 
     val mistakes by repository.allMistakes.collectAsState(initial = emptyList())
     var currentIndex by remember { mutableIntStateOf(0) }
     var answerState by remember { mutableStateOf(AnswerState.IDLE) }
-    var showHintDialog by remember { mutableStateOf(false) }
 
-    val bankWords = remember { mutableStateListOf<BankWord>() }
-    val selectedWords = remember { mutableStateListOf<BankWord>() }
+    val bankWords = remember { mutableStateListOf<BankWordItem>() }
+    val selectedWords = remember { mutableStateListOf<BankWordItem>() }
 
-    // Update current question and bank words
     LaunchedEffect(currentIndex, mistakes) {
         if (mistakes.isNotEmpty() && currentIndex < mistakes.size) {
             val q = mistakes[currentIndex]
@@ -120,16 +122,25 @@ fun MistakeReviewScreen(
                 emptyList()
             }
 
+            val glossMapType = object : TypeToken<Map<String, String>>() {}.type
+            val wordGlosses: Map<String, String> = try {
+                gson.fromJson(q.wordGlossesJson, glossMapType) ?: emptyMap()
+            } catch (e: Exception) {
+                emptyMap()
+            }
+
             val combined = (correctWords + distractors).shuffled()
             bankWords.clear()
             combined.forEachIndexed { idx, word ->
-                bankWords.add(BankWord(id = idx, word = word))
+                val clean = cleanWordPunctuation(word)
+                val gloss = wordGlosses[clean] ?: wordGlosses[clean.lowercase()] ?: ""
+                bankWords.add(BankWordItem(id = idx, word = word, hindiGloss = gloss))
             }
         }
     }
 
     if (mistakes.isEmpty()) {
-        Scaffold { padding ->
+        Scaffold(containerColor = if (isDark) GuruDarkBg else GuruBg) { padding ->
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -140,38 +151,38 @@ fun MistakeReviewScreen(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(
                         modifier = Modifier
-                            .size(72.dp)
+                            .size(76.dp)
                             .clip(CircleShape)
-                            .background(DuoGreen.copy(alpha = 0.2f)),
+                            .background(GuruMintLight),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = null,
-                            tint = DuoGreen,
-                            modifier = Modifier.size(40.dp)
+                            tint = GuruMint,
+                            modifier = Modifier.size(42.dp)
                         )
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Sabhi Mistakes Clear Ho Gayi!",
-                        fontSize = 20.sp,
+                        text = "All Mistakes Cleared!",
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (isDark) DuoDarkText else DuoTextDark
+                        color = if (isDark) GuruDarkText else GuruTextDark
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Aapke paas koi galat sawal bacha nahi hai. Bahut badhiya!",
-                        fontSize = 15.sp,
-                        color = DuoGrayText
+                        text = "Sabhi galat sawal theek ho gaye hain. Shabaash!",
+                        fontSize = 14.sp,
+                        color = GuruTextMuted
                     )
                     Spacer(modifier = Modifier.height(24.dp))
-                    DuoButton(
-                        text = "BACK TO LESSONS",
-                        color = DuoButtonColor.GREEN,
-                        height = 46.dp,
+                    GuruButton(
+                        text = "Back to Lessons",
                         onClick = onNavigateBack,
-                        modifier = Modifier.width(220.dp)
+                        height = 48.dp,
+                        modifier = Modifier.width(200.dp)
                     )
                 }
             }
@@ -181,214 +192,117 @@ fun MistakeReviewScreen(
 
     val currentQuestion = if (currentIndex < mistakes.size) mistakes[currentIndex] else mistakes.first()
 
-    Scaffold(
-        topBar = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(if (isDark) DuoDarkSurface else Color.White)
-                    .padding(horizontal = 16.dp, vertical = 10.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Exit",
-                            tint = DuoGrayText
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    val progress = ((currentIndex + 1).toFloat() / mistakes.size).coerceIn(0f, 1f)
-                    LinearProgressIndicator(
-                        progress = { progress },
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(12.dp)
-                            .clip(RoundedCornerShape(6.dp)),
-                        color = DuoRed,
-                        trackColor = if (isDark) Color(0xFF26373F) else DuoGrayBorder
-                    )
-
-                    Spacer(modifier = Modifier.width(12.dp))
-
-                    Text(
-                        text = "${currentIndex + 1}/${mistakes.size}",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = DuoRed
-                    )
-                }
-            }
-        }
-    ) { padding ->
-        Box(
+    Scaffold(containerColor = if (isDark) GuruDarkBg else GuruBg) { padding ->
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .padding(bottom = 150.dp)
+            // Header
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "REVISE MISTAKE",
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 1.sp,
-                    color = DuoRed
-                )
-
-                Spacer(modifier = Modifier.height(14.dp))
-
-                // Hindi Sentence Card
-                androidx.compose.material3.Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = androidx.compose.material3.CardDefaults.cardColors(
-                        containerColor = if (isDark) DuoDarkSurface else Color.White
-                    ),
-                    border = androidx.compose.foundation.BorderStroke(
-                        1.5.dp,
-                        if (isDark) DuoDarkCardBorder else DuoGrayBorder
+                IconButton(onClick = onNavigateBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = if (isDark) GuruDarkText else GuruTextDark
                     )
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "REVISE MISTAKES",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = GuruRed,
+                        letterSpacing = 1.sp
+                    )
+                    Text(
+                        text = "Mistake #${currentIndex + 1} of ${mistakes.size}",
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        color = if (isDark) GuruDarkText else GuruTextDark
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            // Hindi Question Card
+            val cardShape = RoundedCornerShape(22.dp)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(if (isDark) GuruDarkSurface else Color.White)
+                    .border(1.dp, if (isDark) GuruDarkCardBorder else GuruCardBorder, cardShape)
+                    .padding(18.dp)
+            ) {
+                Column {
+                    Text(
+                        text = currentQuestion.hindiText,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isDark) GuruDarkText else GuruTextDark,
+                        lineHeight = 28.sp
+                    )
+                    if (currentQuestion.romanText.isNotBlank()) {
+                        Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = currentQuestion.hindiText,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = if (isDark) DuoDarkText else DuoTextDark,
-                            lineHeight = 28.sp
+                            text = "(${currentQuestion.romanText})",
+                            fontSize = 14.sp,
+                            color = GuruTextMuted
                         )
-
-                        if (currentQuestion.romanText.isNotBlank()) {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                text = "(${currentQuestion.romanText})",
-                                fontSize = 14.sp,
-                                color = DuoGrayText
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(DuoBlue.copy(alpha = 0.15f))
-                                    .border(1.dp, DuoBlue, RoundedCornerShape(12.dp))
-                            ) {
-                                IconButton(
-                                    onClick = { ttsManager.speak(currentQuestion.primaryAnswer, isSlow = false) },
-                                    modifier = Modifier.size(38.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.VolumeUp,
-                                        contentDescription = "Listen",
-                                        tint = DuoBlue,
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.width(8.dp))
-
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(DuoYellow.copy(alpha = 0.15f))
-                                    .border(1.dp, DuoYellow, RoundedCornerShape(12.dp))
-                            ) {
-                                IconButton(
-                                    onClick = { ttsManager.speak(currentQuestion.primaryAnswer, isSlow = true) },
-                                    modifier = Modifier.size(38.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Pets,
-                                        contentDescription = "Slow Turtle",
-                                        tint = DuoYellow,
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.width(8.dp))
-
-                            if (currentQuestion.hint.isNotBlank()) {
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(12.dp))
-                                        .background(DuoGreen.copy(alpha = 0.15f))
-                                        .border(1.dp, DuoGreen, RoundedCornerShape(12.dp))
-                                ) {
-                                    IconButton(
-                                        onClick = { showHintDialog = true },
-                                        modifier = Modifier.size(38.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Lightbulb,
-                                            contentDescription = "Hint",
-                                            tint = DuoGreen,
-                                            modifier = Modifier.size(20.dp)
-                                        )
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
+            }
 
-                Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
-                // ANSWER SLOT
-                Text(
-                    text = "YOUR ANSWER",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 0.8.sp,
-                    color = DuoGrayText
-                )
-                Spacer(modifier = Modifier.height(6.dp))
+            // Answer Slot Card
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(if (isDark) GuruDarkSurface else Color.White)
+                    .border(1.dp, if (isDark) GuruDarkCardBorder else GuruCardBorder, cardShape)
+                    .padding(16.dp)
+            ) {
+                Column {
+                    Text(
+                        text = "YOUR CORRECTION",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = GuruPurple,
+                        letterSpacing = 0.8.sp
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .defaultMinSize(minHeight = 110.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(if (isDark) DuoDarkSlotBg else DuoGray)
-                        .border(
-                            width = 1.5.dp,
-                            color = if (isDark) DuoDarkCardBorder else DuoGrayBorder,
-                            shape = RoundedCornerShape(16.dp)
-                        )
-                        .padding(12.dp),
-                    contentAlignment = if (selectedWords.isEmpty()) Alignment.Center else Alignment.TopStart
-                ) {
-                    if (selectedWords.isEmpty()) {
-                        Text(
-                            text = "Tap words below to assemble translation",
-                            color = DuoGrayText,
-                            fontSize = 14.sp
-                        )
-                    } else {
+                    val slotShape = RoundedCornerShape(16.dp)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .defaultMinSize(minHeight = 100.dp)
+                            .clip(slotShape)
+                            .background(if (isDark) Color(0xFF131222) else Color(0xFFFAF9FF))
+                            .border(1.5.dp, GuruCardBorderDashed, slotShape)
+                            .padding(12.dp)
+                    ) {
                         FlowRow(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             selectedWords.forEach { item ->
-                                WordChip(
+                                SlotWordChip(
                                     text = item.word,
-                                    isInSlot = true,
-                                    onClick = {
+                                    onRemove = {
                                         if (answerState == AnswerState.IDLE) {
                                             SoundEffectManager.playClick()
                                             selectedWords.remove(item)
@@ -399,183 +313,128 @@ fun MistakeReviewScreen(
                         }
                     }
                 }
+            }
 
-                Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                // WORD BANK
-                Text(
-                    text = "WORD BANK",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 0.8.sp,
-                    color = DuoGrayText
-                )
-                Spacer(modifier = Modifier.height(8.dp))
+            // Word Bank
+            Text(
+                text = "WORD BANK",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = GuruPurple,
+                letterSpacing = 1.sp
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    bankWords.forEach { item ->
-                        val isSelected = selectedWords.any { it.id == item.id }
-                        WordChip(
-                            text = item.word,
-                            isPlaceholder = isSelected,
-                            onClick = {
-                                if (answerState == AnswerState.IDLE && !isSelected) {
-                                    SoundEffectManager.playClick()
-                                    selectedWords.add(item)
-                                }
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                bankWords.forEach { item ->
+                    val isSelected = selectedWords.any { it.id == item.id }
+                    BankWordTile(
+                        word = item.word,
+                        hindiGloss = item.hindiGloss,
+                        isSelected = isSelected,
+                        onClick = {
+                            if (answerState == AnswerState.IDLE && !isSelected) {
+                                SoundEffectManager.playClick()
+                                selectedWords.add(item)
                             }
-                        )
-                    }
+                        }
+                    )
                 }
             }
 
-            // Bottom check / continue action
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-            ) {
-                if (answerState == AnswerState.IDLE) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(if (isDark) DuoDarkSurface else Color.White)
-                            .border(
-                                width = 1.dp,
-                                color = if (isDark) DuoDarkCardBorder else DuoGrayBorder,
-                                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-                            )
-                            .padding(16.dp)
-                    ) {
-                        DuoButton(
-                            text = "CHECK",
-                            enabled = selectedWords.isNotEmpty(),
-                            color = DuoButtonColor.GREEN,
-                            onClick = {
-                                val userSentence = selectedWords.joinToString(" ") { it.word }
-                                val isCorrect = checkAnswer(
-                                    userSentence = userSentence,
-                                    primary = currentQuestion.primaryAnswer,
-                                    alternatesJson = currentQuestion.alternateAnswersJson,
-                                    gson = gson
-                                )
+            Spacer(modifier = Modifier.height(24.dp))
 
-                                if (isCorrect) {
-                                    answerState = AnswerState.CORRECT
-                                    SoundEffectManager.playSuccess()
-                                    ttsManager.speak(currentQuestion.primaryAnswer)
-                                    scope.launch {
-                                        repository.markMistake(currentQuestion.id, false)
-                                    }
-                                } else {
-                                    answerState = AnswerState.INCORRECT
-                                    SoundEffectManager.playError()
-                                }
-                            }
+            // Bottom Buttons
+            if (answerState == AnswerState.IDLE) {
+                GuruButton(
+                    text = "Verify Correction",
+                    icon = Icons.Default.Check,
+                    enabled = selectedWords.isNotEmpty(),
+                    onClick = {
+                        val userSentence = selectedWords.joinToString(" ") { it.word }
+                        val isCorrect = checkAnswer(
+                            userSentence = userSentence,
+                            primary = currentQuestion.primaryAnswer,
+                            alternatesJson = currentQuestion.alternateAnswersJson,
+                            gson = gson
                         )
-                    }
-                } else {
-                    val isCorrect = answerState == AnswerState.CORRECT
-                    val bannerBg = if (isCorrect) {
-                        if (isDark) Color(0xFF1B3820) else DuoGreenLight
-                    } else {
-                        if (isDark) Color(0xFF381B1C) else DuoRedLight
-                    }
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                            .background(bannerBg)
-                            .padding(16.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(36.dp)
-                                    .clip(CircleShape)
-                                    .background(if (isCorrect) DuoGreen else DuoRed),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = if (isCorrect) Icons.Default.Check else Icons.Default.Close,
-                                    contentDescription = null,
-                                    tint = Color.White,
-                                    modifier = Modifier.size(22.dp)
-                                )
+                        if (isCorrect) {
+                            answerState = AnswerState.CORRECT
+                            SoundEffectManager.playSuccess()
+                            ttsManager.speak(currentQuestion.primaryAnswer)
+                            scope.launch {
+                                repository.markMistake(currentQuestion.id, false)
                             }
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Column {
-                                Text(
-                                    text = if (isCorrect) "Mistake Corrected! Great!" else "Still Incorrect:",
-                                    fontSize = 17.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = if (isCorrect) DuoGreen else DuoRed
-                                )
-                                if (!isCorrect) {
-                                    Spacer(modifier = Modifier.height(2.dp))
-                                    Text(
-                                        text = currentQuestion.primaryAnswer,
-                                        fontSize = 15.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = if (isDark) DuoDarkText else DuoTextDark
-                                    )
-                                }
-                            }
+                        } else {
+                            answerState = AnswerState.INCORRECT
+                            SoundEffectManager.playError()
                         }
-
-                        Spacer(modifier = Modifier.height(14.dp))
-
-                        DuoButton(
-                            text = "CONTINUE",
-                            color = if (isCorrect) DuoButtonColor.GREEN else DuoButtonColor.RED,
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else if (answerState == AnswerState.CORRECT) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(GuruMintLight)
+                        .padding(14.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = "Correct! Mistake Cleared 🎉",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = GuruMint
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        GuruButton(
+                            text = "Next Mistake →",
                             onClick = {
                                 if (currentIndex < mistakes.size - 1) {
                                     currentIndex++
                                 } else {
                                     currentIndex = 0
                                 }
-                            }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            height = 46.dp
+                        )
+                    }
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(GuruRedLight)
+                        .padding(14.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = "Still incorrect: ${currentQuestion.primaryAnswer}",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            color = GuruRed
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        GuruButton(
+                            text = "Try Again",
+                            icon = Icons.Default.Refresh,
+                            onClick = { answerState = AnswerState.IDLE },
+                            modifier = Modifier.fillMaxWidth(),
+                            height = 46.dp
                         )
                     }
                 }
             }
         }
-    }
-
-    if (showHintDialog) {
-        AlertDialog(
-            onDismissRequest = { showHintDialog = false },
-            title = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Lightbulb,
-                        contentDescription = null,
-                        tint = DuoGreen
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Vocabulary Hint", fontWeight = FontWeight.Bold)
-                }
-            },
-            text = {
-                Text(
-                    text = currentQuestion.hint,
-                    fontSize = 16.sp,
-                    lineHeight = 22.sp
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = { showHintDialog = false }) {
-                    Text(text = "GOT IT", fontWeight = FontWeight.Bold, color = DuoGreen)
-                }
-            }
-        )
     }
 }

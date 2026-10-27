@@ -13,16 +13,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
@@ -52,18 +52,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.spokenguru.app.data.repository.LessonRepository
-import com.spokenguru.app.ui.components.DuoButton
-import com.spokenguru.app.ui.components.DuoButtonColor
-import com.spokenguru.app.ui.theme.DuoBlue
-import com.spokenguru.app.ui.theme.DuoDarkCardBorder
-import com.spokenguru.app.ui.theme.DuoDarkSurface
-import com.spokenguru.app.ui.theme.DuoDarkText
-import com.spokenguru.app.ui.theme.DuoGray
-import com.spokenguru.app.ui.theme.DuoGrayBorder
-import com.spokenguru.app.ui.theme.DuoGrayText
-import com.spokenguru.app.ui.theme.DuoGreen
-import com.spokenguru.app.ui.theme.DuoRed
-import com.spokenguru.app.ui.theme.DuoTextDark
+import com.spokenguru.app.ui.components.GuruButton
+import com.spokenguru.app.ui.components.GuruButtonVariant
+import com.spokenguru.app.ui.theme.GuruBg
+import com.spokenguru.app.ui.theme.GuruBlue
+import com.spokenguru.app.ui.theme.GuruCardBorder
+import com.spokenguru.app.ui.theme.GuruDarkBg
+import com.spokenguru.app.ui.theme.GuruDarkCardBorder
+import com.spokenguru.app.ui.theme.GuruDarkSurface
+import com.spokenguru.app.ui.theme.GuruDarkText
+import com.spokenguru.app.ui.theme.GuruPurple
+import com.spokenguru.app.ui.theme.GuruPurpleLight
+import com.spokenguru.app.ui.theme.GuruRed
+import com.spokenguru.app.ui.theme.GuruTextDark
+import com.spokenguru.app.ui.theme.GuruTextMuted
+import com.spokenguru.app.ui.theme.GuruTextSubtle
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,7 +79,7 @@ fun ImportLessonScreen(
     val scope = rememberCoroutineScope()
     val isDark = isSystemInDarkTheme()
 
-    var dbStats by remember { mutableStateOf("Loading stats...") }
+    var dbStats by remember { mutableStateOf("Loading database stats...") }
     var lessonNumberText by remember { mutableStateOf("2") }
     var jsonInput by remember { mutableStateOf("") }
     var isImporting by remember { mutableStateOf(false) }
@@ -99,33 +102,43 @@ fun ImportLessonScreen(
     "primaryAnswer": "What is the time?",
     "alternateAnswers": ["What's the time?"],
     "distractors": ["where", "how", "this", "that"],
-    "hint": "Use 'What is the time?' or 'What's the time?'"
-  },
-  {
-    "questionNumber": 2,
-    "hindiText": "मेरी घड़ी में 5 बजे हैं।",
-    "romanText": "Meri ghadi mein 5 baje hain.",
-    "primaryAnswer": "It is 5 o'clock by my watch.",
-    "alternateAnswers": ["It's 5 o'clock by my watch."],
-    "distractors": ["in", "on", "are", "these"],
-    "hint": "Use 'by my watch' for time in a watch"
+    "hint": "Use 'What is the time?' or 'What's the time?'",
+    "ruleTitle": "Time Expressions",
+    "grammarRule": "Time poochne ke liye 'What is the time?' ka prayog hota hai.",
+    "tagKeyword": "Time (समय)",
+    "categoryTag": "WH Question",
+    "wordGlosses": {
+      "what": "क्या",
+      "is": "है",
+      "the": "-",
+      "time": "समय",
+      "where": "कहाँ",
+      "how": "कैसे"
+    }
   }
 ]"""
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Manage & Import Lessons", fontWeight = FontWeight.Bold) },
+                title = {
+                    Text(
+                        text = "Manage & Import Lessons",
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (isDark) DuoDarkSurface else Color.White
+                    containerColor = if (isDark) GuruDarkSurface else Color.White
                 )
             )
-        }
+        },
+        containerColor = if (isDark) GuruDarkBg else GuruBg
     ) { padding ->
         Column(
             modifier = Modifier
@@ -135,60 +148,57 @@ fun ImportLessonScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Stats Card
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDark) DuoDarkSurface else DuoGray
-                ),
-                border = androidx.compose.foundation.BorderStroke(
-                    1.dp,
-                    if (isDark) DuoDarkCardBorder else DuoGrayBorder
-                )
+            val cardShape = RoundedCornerShape(22.dp)
+
+            // Database stats
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(if (isDark) GuruDarkSurface else Color.White)
+                    .border(1.dp, if (isDark) GuruDarkCardBorder else GuruCardBorder, cardShape)
+                    .padding(18.dp)
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
+                Column {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "DATABASE STATUS",
+                            text = "ROOM SQLITE STATUS",
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
-                            letterSpacing = 1.sp,
-                            color = DuoGrayText
+                            color = GuruPurple,
+                            letterSpacing = 1.sp
                         )
-                        IconButton(onClick = { refreshStats() }) {
-                            Icon(imageVector = Icons.Default.Refresh, contentDescription = "Refresh", tint = DuoBlue)
+                        IconButton(onClick = { refreshStats() }, modifier = Modifier.size(24.dp)) {
+                            Icon(imageVector = Icons.Default.Refresh, contentDescription = "Refresh", tint = GuruPurple)
                         }
                     }
+                    Spacer(modifier = Modifier.height(6.dp))
                     Text(
                         text = dbStats,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Medium,
-                        color = if (isDark) DuoDarkText else DuoTextDark
+                        color = if (isDark) GuruDarkText else GuruTextDark
                     )
                 }
             }
 
-            // Quick reset button for Lesson 1
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDark) DuoDarkSurface else Color.White
-                ),
-                border = androidx.compose.foundation.BorderStroke(
-                    1.dp,
-                    if (isDark) DuoDarkCardBorder else DuoGrayBorder
-                )
+            // Reset progress
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(if (isDark) GuruDarkSurface else Color.White)
+                    .border(1.dp, if (isDark) GuruDarkCardBorder else GuruCardBorder, cardShape)
+                    .padding(18.dp)
             ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -197,20 +207,19 @@ fun ImportLessonScreen(
                             text = "Reset Lesson 1 Progress",
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp,
-                            color = if (isDark) DuoDarkText else DuoTextDark
+                            color = if (isDark) GuruDarkText else GuruTextDark
                         )
                         Text(
-                            text = "Clear completed questions count to restart",
+                            text = "Clear completed questions count to restart fresh",
                             fontSize = 12.sp,
-                            color = DuoGrayText
+                            color = GuruTextMuted
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    DuoButton(
+                    Spacer(modifier = Modifier.width(10.dp))
+                    GuruButton(
                         text = "RESET",
-                        color = DuoButtonColor.GRAY,
+                        variant = GuruButtonVariant.SECONDARY,
                         height = 38.dp,
-                        modifier = Modifier.width(90.dp),
                         onClick = {
                             scope.launch {
                                 repository.resetLesson(1)
@@ -222,42 +231,40 @@ fun ImportLessonScreen(
                 }
             }
 
-            // Import Form Card
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isDark) DuoDarkSurface else Color.White
-                ),
-                border = androidx.compose.foundation.BorderStroke(
-                    1.dp,
-                    if (isDark) DuoDarkCardBorder else DuoGrayBorder
-                )
+            // JSON Import Box
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(if (isDark) GuruDarkSurface else Color.White)
+                    .border(1.dp, if (isDark) GuruDarkCardBorder else GuruCardBorder, cardShape)
+                    .padding(18.dp)
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
+                Column {
                     Text(
                         text = "ADD / UPDATE LESSON CONTENT",
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 13.sp,
-                        letterSpacing = 1.sp,
-                        color = DuoBlue
+                        color = GuruPurple,
+                        letterSpacing = 1.sp
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
                         text = "Target Lesson Number (1 – 40):",
-                        fontSize = 14.sp,
+                        fontSize = 13.sp,
                         fontWeight = FontWeight.Medium,
-                        color = if (isDark) DuoDarkText else DuoTextDark
+                        color = if (isDark) GuruDarkText else GuruTextDark
                     )
-                    Spacer(modifier = Modifier.height(6.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     OutlinedTextField(
                         value = lessonNumberText,
                         onValueChange = { lessonNumberText = it.filter { ch -> ch.isDigit() } },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(14.dp)
                     )
 
                     Spacer(modifier = Modifier.height(14.dp))
@@ -269,12 +276,12 @@ fun ImportLessonScreen(
                     ) {
                         Text(
                             text = "Questions JSON:",
-                            fontSize = 14.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
-                            color = if (isDark) DuoDarkText else DuoTextDark
+                            color = if (isDark) GuruDarkText else GuruTextDark
                         )
                         TextButton(onClick = { jsonInput = sampleLesson2Json }) {
-                            Text(text = "Paste Sample JSON", color = DuoBlue, fontWeight = FontWeight.Bold)
+                            Text(text = "Paste Sample JSON", color = GuruPurple, fontWeight = FontWeight.Bold)
                         }
                     }
 
@@ -284,20 +291,19 @@ fun ImportLessonScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp),
-                        shape = RoundedCornerShape(12.dp),
+                        shape = RoundedCornerShape(14.dp),
                         placeholder = { Text(text = "Paste JSON array here...") },
                         textStyle = androidx.compose.ui.text.TextStyle(
                             fontFamily = FontFamily.Monospace,
-                            fontSize = 13.sp
+                            fontSize = 12.sp
                         )
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    DuoButton(
+                    GuruButton(
                         text = if (isImporting) "IMPORTING..." else "SAVE TO DATABASE",
                         enabled = !isImporting && jsonInput.isNotBlank() && lessonNumberText.isNotBlank(),
-                        color = DuoButtonColor.GREEN,
                         onClick = {
                             val targetLesson = lessonNumberText.toIntOrNull() ?: 1
                             isImporting = true
@@ -321,7 +327,8 @@ fun ImportLessonScreen(
                                     ).show()
                                 }
                             }
-                        }
+                        },
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }

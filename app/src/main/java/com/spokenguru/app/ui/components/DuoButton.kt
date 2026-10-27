@@ -1,16 +1,23 @@
 package com.spokenguru.app.ui.components
 
-import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,94 +25,123 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.spokenguru.app.ui.theme.DuoBlue
-import com.spokenguru.app.ui.theme.DuoBlueDark
-import com.spokenguru.app.ui.theme.DuoGray
-import com.spokenguru.app.ui.theme.DuoGrayBorder
-import com.spokenguru.app.ui.theme.DuoGrayText
-import com.spokenguru.app.ui.theme.DuoGreen
-import com.spokenguru.app.ui.theme.DuoGreenDark
-import com.spokenguru.app.ui.theme.DuoRed
-import com.spokenguru.app.ui.theme.DuoRedDark
+import com.spokenguru.app.ui.theme.GuruCardBorder
+import com.spokenguru.app.ui.theme.GuruDarkCardBorder
+import com.spokenguru.app.ui.theme.GuruDarkSurface
+import com.spokenguru.app.ui.theme.GuruPurple
+import com.spokenguru.app.ui.theme.GuruPurpleDeep
+import com.spokenguru.app.ui.theme.GuruPurpleLight
+import com.spokenguru.app.ui.theme.GuruRed
+import com.spokenguru.app.ui.theme.GuruTextDark
+import com.spokenguru.app.ui.theme.GuruTextMuted
+import com.spokenguru.app.ui.theme.GuruTextSubtle
 
-enum class DuoButtonColor {
-    GREEN,
-    BLUE,
-    RED,
-    GRAY
+enum class GuruButtonVariant {
+    PRIMARY,
+    SECONDARY,
+    DANGER,
+    MUTED
 }
 
 @Composable
-fun DuoButton(
+fun GuruButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    color: DuoButtonColor = DuoButtonColor.GREEN,
+    variant: GuruButtonVariant = GuruButtonVariant.PRIMARY,
+    icon: ImageVector? = null,
+    subText: String? = null,
     enabled: Boolean = true,
-    height: Dp = 50.dp
+    height: Dp = 52.dp
 ) {
+    val isDark = isSystemInDarkTheme()
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(targetValue = if (isPressed && enabled) 0.98f else 1f, label = "btnScale")
 
-    val (faceColor, shadowColor, textColor) = when {
-        !enabled -> Triple(DuoGray, DuoGrayBorder, DuoGrayText)
-        color == DuoButtonColor.GREEN -> Triple(DuoGreen, DuoGreenDark, Color.White)
-        color == DuoButtonColor.BLUE -> Triple(DuoBlue, DuoBlueDark, Color.White)
-        color == DuoButtonColor.RED -> Triple(DuoRed, DuoRedDark, Color.White)
-        color == DuoButtonColor.GRAY -> Triple(Color(0xFFE5E5E5), Color(0xFFC7C7C7), Color(0xFF4B4B4B))
-        else -> Triple(DuoGreen, DuoGreenDark, Color.White)
+    val shape = RoundedCornerShape(26.dp)
+
+    val (bg, contentColor, borderColor) = when {
+        !enabled -> Triple(Color(0xFFE5E2F4), Color(0xFF9E9AB7), Color.Transparent)
+        variant == GuruButtonVariant.PRIMARY -> Triple(GuruPurpleDeep, Color.White, Color.Transparent)
+        variant == GuruButtonVariant.SECONDARY -> Triple(
+            if (isDark) GuruDarkSurface else Color.White,
+            GuruPurple,
+            if (isDark) GuruDarkCardBorder else Color(0xFFDDD8FD)
+        )
+        variant == GuruButtonVariant.DANGER -> Triple(GuruRed, Color.White, Color.Transparent)
+        variant == GuruButtonVariant.MUTED -> Triple(
+            if (isDark) Color(0xFF232042) else GuruPurpleLight,
+            GuruPurple,
+            Color.Transparent
+        )
+        else -> Triple(GuruPurpleDeep, Color.White, Color.Transparent)
     }
-
-    val shadowDepth = 4.dp
-    val pressOffset by animateDpAsState(
-        targetValue = if (isPressed && enabled) shadowDepth else 0.dp,
-        label = "ButtonPress"
-    )
 
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .height(height + shadowDepth)
+            .scale(scale)
+            .height(height)
+            .shadow(if (enabled && variant == GuruButtonVariant.PRIMARY) 4.dp else 0.dp, shape)
+            .clip(shape)
+            .background(bg)
+            .border(if (borderColor != Color.Transparent) 1.5.dp else 0.dp, borderColor, shape)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 enabled = enabled,
                 onClick = onClick
-            ),
-        contentAlignment = Alignment.TopCenter
+            )
+            .padding(horizontal = 20.dp),
+        contentAlignment = Alignment.Center
     ) {
-        // Bottom 3D shadow layer
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(height)
-                .offset(y = shadowDepth)
-                .clip(RoundedCornerShape(16.dp))
-                .background(shadowColor)
-        )
-
-        // Top button face
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(height)
-                .offset(y = pressOffset)
-                .clip(RoundedCornerShape(16.dp))
-                .background(faceColor),
-            contentAlignment = Alignment.Center
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
+            if (subText != null) {
+                Text(
+                    text = subText.uppercase(),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = contentColor.copy(alpha = 0.7f),
+                    letterSpacing = 1.sp
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Box(
+                    modifier = Modifier
+                        .width(1.dp)
+                        .height(18.dp)
+                        .background(contentColor.copy(alpha = 0.3f))
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+
             Text(
-                text = text.uppercase(),
-                color = textColor,
+                text = text,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                letterSpacing = 0.8.sp
+                color = contentColor,
+                letterSpacing = 0.3.sp
             )
+
+            if (icon != null) {
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = contentColor,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
         }
     }
 }
