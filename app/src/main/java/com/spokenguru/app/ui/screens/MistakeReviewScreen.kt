@@ -2,6 +2,7 @@ package com.spokenguru.app.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,15 +24,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -72,11 +70,9 @@ import com.spokenguru.app.ui.theme.GuruDarkBg
 import com.spokenguru.app.ui.theme.GuruDarkCardBorder
 import com.spokenguru.app.ui.theme.GuruDarkSurface
 import com.spokenguru.app.ui.theme.GuruDarkText
-import com.spokenguru.app.ui.theme.GuruDarkTextMuted
 import com.spokenguru.app.ui.theme.GuruMint
 import com.spokenguru.app.ui.theme.GuruMintLight
 import com.spokenguru.app.ui.theme.GuruPurple
-import com.spokenguru.app.ui.theme.GuruPurpleDeep
 import com.spokenguru.app.ui.theme.GuruPurpleLight
 import com.spokenguru.app.ui.theme.GuruRed
 import com.spokenguru.app.ui.theme.GuruRedLight
@@ -122,20 +118,16 @@ fun MistakeReviewScreen(
                 emptyList()
             }
 
-            val glossMapType = object : TypeToken<Map<String, String>>() {}.type
-            val wordGlosses: Map<String, String> = try {
-                gson.fromJson(q.wordGlossesJson, glossMapType) ?: emptyMap()
-            } catch (e: Exception) {
-                emptyMap()
+            val list = mutableListOf<BankWordItem>()
+            correctWords.forEachIndexed { idx, w ->
+                list.add(BankWordItem(id = idx, word = w, isDistractor = false))
+            }
+            distractors.take(3).forEachIndexed { idx, w ->
+                list.add(BankWordItem(id = 100 + idx, word = w, isDistractor = true))
             }
 
-            val combined = (correctWords + distractors).shuffled()
             bankWords.clear()
-            combined.forEachIndexed { idx, word ->
-                val clean = cleanWordPunctuation(word)
-                val gloss = wordGlosses[clean] ?: wordGlosses[clean.lowercase()] ?: ""
-                bankWords.add(BankWordItem(id = idx, word = word, hindiGloss = gloss))
-            }
+            bankWords.addAll(list.shuffled())
         }
     }
 
@@ -200,34 +192,61 @@ fun MistakeReviewScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-            // Header
+            // Header with Back and Prev/Next
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = if (isDark) GuruDarkText else GuruTextDark
-                    )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = if (isDark) GuruDarkText else GuruTextDark
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Column {
+                        Text(
+                            text = "REVISE MISTAKES",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = GuruRed,
+                            letterSpacing = 1.sp
+                        )
+                        Text(
+                            text = "Mistake #${currentIndex + 1} of ${mistakes.size}",
+                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = if (isDark) GuruDarkText else GuruTextDark
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.width(8.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "REVISE MISTAKES",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = GuruRed,
-                        letterSpacing = 1.sp
-                    )
-                    Text(
-                        text = "Mistake #${currentIndex + 1} of ${mistakes.size}",
-                        fontFamily = FontFamily.Serif,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = if (isDark) GuruDarkText else GuruTextDark
-                    )
+
+                // Prev / Next icons
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(
+                        onClick = { if (currentIndex > 0) currentIndex-- },
+                        enabled = currentIndex > 0
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ChevronLeft,
+                            contentDescription = "Prev",
+                            tint = if (currentIndex > 0) GuruPurple else GuruTextSubtle
+                        )
+                    }
+                    IconButton(
+                        onClick = { if (currentIndex < mistakes.size - 1) currentIndex++ },
+                        enabled = currentIndex < mistakes.size - 1
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ChevronRight,
+                            contentDescription = "Next",
+                            tint = if (currentIndex < mistakes.size - 1) GuruPurple else GuruTextSubtle
+                        )
+                    }
                 }
             }
 
@@ -265,7 +284,7 @@ fun MistakeReviewScreen(
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            // Answer Slot Card
+            // Answer Slot Card (No 'X' cross icon)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -317,7 +336,7 @@ fun MistakeReviewScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Word Bank
+            // Word Bank (Clean English Words Only)
             Text(
                 text = "WORD BANK",
                 fontSize = 12.sp,
@@ -336,7 +355,6 @@ fun MistakeReviewScreen(
                     val isSelected = selectedWords.any { it.id == item.id }
                     BankWordTile(
                         word = item.word,
-                        hindiGloss = item.hindiGloss,
                         isSelected = isSelected,
                         onClick = {
                             if (answerState == AnswerState.IDLE && !isSelected) {
@@ -350,7 +368,7 @@ fun MistakeReviewScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Bottom Buttons
+            // Bottom Actions
             if (answerState == AnswerState.IDLE) {
                 GuruButton(
                     text = "Verify Correction",
