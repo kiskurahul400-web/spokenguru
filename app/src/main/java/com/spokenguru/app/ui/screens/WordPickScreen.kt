@@ -1,5 +1,12 @@
 package com.spokenguru.app.ui.screens
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.speech.RecognizerIntent
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -111,6 +118,12 @@ import com.spokenguru.app.ui.theme.GuruTextMuted
 import com.spokenguru.app.ui.theme.GuruTextSubtle
 import kotlinx.coroutines.launch
 
+enum class TapAudioMode(val label: String, val icon: String, val toastMessage: String) {
+    TAP_SOUND("Tap Sound", "🔊", "Tap Sound: ON (क्लिक आवाज)"),
+    TTS("Word TTS", "🗣️", "Word TTS: ON (टैप करने पर शब्द बोलेगा)"),
+    OFF("Sound Off", "🔇", "Sound: OFF (म्यूट)")
+}
+
 data class BankWordItem(
     val id: Int,
     val word: String,
@@ -145,7 +158,7 @@ fun WordPickScreen(
     var isLessonCompleted by remember { mutableStateOf(false) }
 
     // Toggle options
-    var tapSoundEnabled by remember { mutableStateOf(true) }
+    var tapAudioMode by remember { mutableStateOf(TapAudioMode.TAP_SOUND) }
     var hinglishVisible by remember { mutableStateOf(true) }
     var extraDistractorsEnabled by remember { mutableStateOf(true) }
     var isTypingMode by remember { mutableStateOf(false) }
@@ -226,7 +239,7 @@ fun WordPickScreen(
 
         if (isCorrect) {
             answerState = AnswerState.CORRECT
-            if (tapSoundEnabled) SoundEffectManager.playSuccess()
+            if (tapAudioMode != TapAudioMode.OFF) SoundEffectManager.playSuccess()
             ttsManager.speak(currentQuestion.primaryAnswer)
             scope.launch {
                 repository.markQuestionCompleted(currentQuestion.id, currentQuestion.lessonNumber)
@@ -234,10 +247,63 @@ fun WordPickScreen(
             }
         } else {
             answerState = AnswerState.INCORRECT
-            if (tapSoundEnabled) SoundEffectManager.playError()
+            if (tapAudioMode != TapAudioMode.OFF) SoundEffectManager.playError()
             scope.launch {
                 repository.markMistake(currentQuestion.id, true)
             }
+        }
+    }
+
+    // Speech-to-Text: User speaks English answer
+    val speechLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val spokenResults = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = spokenResults?.firstOrNull()?.trim()
+            if (!spokenText.isNullOrBlank()) {
+                Toast.makeText(context, "Heard: \"$spokenText\"", Toast.LENGTH_SHORT).show()
+                typedAnswerText = spokenText
+
+                // Map spoken words to tokens in word bank
+                val spokenTokens = spokenText.split("\\s+".toRegex())
+                    .map { cleanWordPunctuation(it) }
+                    .filter { it.isNotBlank() }
+
+                val matchedItems = mutableListOf<BankWordItem>()
+                val usedIds = mutableSetOf<Int>()
+                spokenTokens.forEachIndexed { index, token ->
+                    val match = bankWords.firstOrNull {
+                        it.id !in usedIds && cleanWordPunctuation(it.word).equals(token, ignoreCase = true)
+                    }
+                    if (match != null) {
+                        matchedItems.add(match)
+                        usedIds.add(match.id)
+                    } else {
+                        matchedItems.add(BankWordItem(id = 3000 + index, word = token))
+                    }
+                }
+                selectedWords.clear()
+                selectedWords.addAll(matchedItems)
+
+                // Check spoken answer
+                doCheckAnswer()
+            }
+        }
+    }
+
+    fun startListening() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-IN")
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "en-IN")
+            putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, false)
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak your English answer (बोलकर उत्तर दें)...")
+        }
+        try {
+            speechLauncher.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "Speech recognition not supported on this device", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -490,14 +556,14 @@ fun WordPickScreen(
                                     .weight(1f)
                                     .clip(RoundedCornerShape(20.dp))
                                     .background(GuruPurpleDeep)
-                                    .clickable { ttsManager.speak(currentQuestion.primaryAnswer) }
+                                    .clickable { startListening() }
                                     .padding(vertical = 10.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
                                         imageVector = Icons.Default.Mic,
-                                        contentDescription = null,
+                                        contentDescription = "Speak Answer",
                                         tint = Color.White,
                                         modifier = Modifier.size(16.dp)
                                     )
@@ -715,7 +781,11 @@ fun WordPickScreen(
                                             text = item.word,
                                             onRemove = {
                                                 if (answerState == AnswerState.IDLE) {
-                                                    if (tapSoundEnabled) SoundEffectManager.playClick()
+                                                    when (tapAudioMode) {
+                                                        TapAudioMode.TAP_SOUND -> SoundEffectManager.playClick()
+                                                        TapAudioMode.TTS -> ttsManager.speak(item.word)
+                                                        TapAudioMode.OFF -> {}
+                                                    }
                                                     selectedWords.remove(item)
                                                 }
                                             }
@@ -797,7 +867,11 @@ fun WordPickScreen(
                                     isSelected = isSelected,
                                     onClick = {
                                         if (answerState == AnswerState.IDLE && !isSelected) {
-                                            if (tapSoundEnabled) SoundEffectManager.playClick()
+                                            when (tapAudioMode) {
+                                                TapAudioMode.TAP_SOUND -> SoundEffectManager.playClick()
+                                                TapAudioMode.TTS -> ttsManager.speak(item.word)
+                                                TapAudioMode.OFF -> {}
+                                            }
                                             selectedWords.add(item)
                                         }
                                     }
@@ -854,10 +928,17 @@ fun WordPickScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         SmallTogglePill(
-                            label = "Tap Sound",
-                            active = tapSoundEnabled,
-                            icon = "🔊",
-                            onClick = { tapSoundEnabled = !tapSoundEnabled }
+                            label = tapAudioMode.label,
+                            active = tapAudioMode != TapAudioMode.OFF,
+                            icon = tapAudioMode.icon,
+                            onClick = {
+                                tapAudioMode = when (tapAudioMode) {
+                                    TapAudioMode.TAP_SOUND -> TapAudioMode.TTS
+                                    TapAudioMode.TTS -> TapAudioMode.OFF
+                                    TapAudioMode.OFF -> TapAudioMode.TAP_SOUND
+                                }
+                                Toast.makeText(context, tapAudioMode.toastMessage, Toast.LENGTH_SHORT).show()
+                            }
                         )
                         SmallTogglePill(
                             label = "Hinglish",
