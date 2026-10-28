@@ -117,6 +117,7 @@ import com.spokenguru.app.ui.theme.GuruPurple
 import com.spokenguru.app.ui.theme.GuruPurpleBorder
 import com.spokenguru.app.ui.theme.GuruPurpleLight
 import com.spokenguru.app.ui.theme.GuruRed
+import com.spokenguru.app.ui.theme.GuruRedDark
 import com.spokenguru.app.ui.theme.GuruRedLight
 import com.spokenguru.app.ui.theme.GuruTextDark
 import com.spokenguru.app.ui.theme.GuruTextMuted
